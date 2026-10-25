@@ -57,7 +57,7 @@ export default function CriptoSearchForm() {
               --- Seleccione ---
             </option>
             {cryptoCurrencies.map(cryptoCurrency => (
-              <option value={cryptoCurrency.CoinInfo.Name} key={cryptoCurrency.CoinInfo.Name}>{cryptoCurrency.CoinInfo.FullName}</option>
+              <option value={cryptoCurrency.SYMBOL} key={cryptoCurrency.SYMBOL}>{cryptoCurrency.NAME}</option>
             ))}
           </select>
         </div>

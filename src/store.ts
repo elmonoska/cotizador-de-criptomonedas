@@ -12,11 +12,13 @@ type CryptoStore = {
   isLoadingCryptoPrice: boolean;
 }
 
-export const useCryptoStore = create<CryptoStore>()(devtools((set) => ({
+export const useCryptoStore = create<CryptoStore>()(devtools((set, get) => ({
   cryptoCurrencies: [],
   cryptoPrice: null,
   isLoadingCrypto: false,
   isLoadingCryptoPrice: false,
+  
+  // funcion para obtener el listado de criptomonedas
   fetchCryptos: async () => {
     set(() => ({isLoadingCrypto: true}));
     try {
@@ -28,10 +30,17 @@ export const useCryptoStore = create<CryptoStore>()(devtools((set) => ({
       set(() => ({isLoadingCrypto: false}));
     }
   },
+
+  // funcion para obtener el precio de una criptomoneda
   fetchData: async (pair) => {
     set(() => ({isLoadingCryptoPrice: true}));
     try {
       const cryptoPrice = await fetchCurrentCryptoPrice(pair);
+
+      // obtener la imagen de la criptomoneda buscando en la lista de criptos
+      const findCrypto = get().cryptoCurrencies.find(crypto => crypto.SYMBOL === pair.criptocurrency);
+      cryptoPrice.IMAGE_URL = findCrypto?.LOGO_URL ?? '';
+
       set(() => ({cryptoPrice}))
     } catch (error) {
       console.error(error)

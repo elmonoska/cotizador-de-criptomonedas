@@ -5,14 +5,14 @@ export const CurrencySchema = z.object({
   name: z.string(),
 });
 
-export const CryptoCurrencyResponseSchema = z.object({
-  CoinInfo: z.object({
-    FullName: z.string(),
-    Name: z.string(),
-  })
+export const CryptoInfoSchema = z.object({
+  ID: z.number(),
+  LOGO_URL: z.string(),
+  NAME: z.string(),
+  SYMBOL: z.string(),
 })
 
-export const CryptoCurrenciesResponseSchema = z.array(CryptoCurrencyResponseSchema)
+export const CryptoCurrenciesSchema = z.array(CryptoInfoSchema)
 
 export const PairSchema = z.object({
   currency: z.string(),
@@ -20,10 +20,10 @@ export const PairSchema = z.object({
 })
 
 export const CryptoPriceSchema = z.object({
-  IMAGEURL: z.string(),
-  PRICE: z.string(),
-  HIGHDAY: z.string(),
-  LOWDAY: z.string(),
-  CHANGEPCT24HOUR: z.string(),
-  LASTUPDATE: z.string(),
+  VALUE: z.number(),
+  MOVING_24_HOUR_HIGH: z.number(),
+  MOVING_24_HOUR_LOW: z.number(),
+  MOVING_24_HOUR_CHANGE_PERCENTAGE: z.number(),
+  VALUE_LAST_UPDATE_TS: z.number(),
+  IMAGE_URL: z.string().optional()
 })
